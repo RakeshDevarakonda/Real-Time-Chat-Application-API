@@ -146,26 +146,25 @@ Description: Send a message to a group.
 
 Request Body:
 
-json
-Copy code
+json:-
+
 {
   "senderId": "sender-id",
+    "groupId": "group-id",
   "content": "Group message content"
 }
 Response:
 
 Success:
 
-json
-Copy code
+
 {
   "success": true,
   "message": "Group message content"
 }
 Error:
 
-json
-Copy code
+
 {
   "message": "Error message"
 }
