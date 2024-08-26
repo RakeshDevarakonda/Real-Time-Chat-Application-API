@@ -3,7 +3,7 @@ import { messagecollections } from "../../schemas/MessageSchema.js";
 import { groupcollections } from "../../schemas/GroupSchema.js";
 import { usercollections } from "../../schemas/UsersSchema.js";
 
-export const SendGroupMessageController = async (req, res) => {
+export const SendGroupMessageController = async (req, res,next) => {
   try {
     const { senderId, content } = req.body;
 
@@ -65,7 +65,9 @@ export const SendGroupMessageController = async (req, res) => {
 
     res.status(201).json({ message: savedMessage });
   } catch (error) {
+    
     console.error("Error sending group message:", error);
+    next(error)
     res.status(500).json({ message: "Internal server error" });
   }
 };

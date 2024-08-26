@@ -6,7 +6,7 @@ const MessageRouter=express.Router()
 
 
 MessageRouter.post("/messages",SendMessageController)
-MessageRouter.post("/messages/history",GetMessageHistoryController)
+MessageRouter.get("/messages/history",GetMessageHistoryController)
 
 
 export default MessageRouter

@@ -13,9 +13,19 @@ import { setupSocket } from './socket.js';
 import { Socket } from 'dgram';
 import { jwtAuth } from './JsonWebTokn/jwt.js';
 
+import swagger from "swagger-ui-express";
+
+import apiDocs from "./swagger.json" assert {type:"json"};
+
+import cors from "cors";
+
+
 
 
 const app = express();
+app.use(cors())
+
+app.use("/api-docs",swagger.serve,swagger.setup(apiDocs))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,8 +56,21 @@ app.use('/api',jwtAuth, GroupRouter);
 
 setupSocket(io);
 
+
+app.use((err, req, res, next) => {
+
+  console.log(err)
+ 
+    res.send('internal server problem');
+  
+});
+
 const PORT = 8000;
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
   mongoosedatabse(); 
 });
+
+
+
+// Use this middleware at the end

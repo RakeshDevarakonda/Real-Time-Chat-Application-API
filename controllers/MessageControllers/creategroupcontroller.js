@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { groupcollections } from "../../schemas/GroupSchema.js";
 import { usercollections } from "../../schemas/UsersSchema.js";
 
-export const CreateGroupController = async (req, res) => {
+export const CreateGroupController = async (req, res,next) => {
   try {
     const { name, members } = req.body;
 
@@ -41,7 +41,7 @@ export const CreateGroupController = async (req, res) => {
 
     if (invalidMembers.length > 0) {
       return res.status(400).json({
-        message: "Some member IDs are not registered users.",
+        message: "Some member IDs are not registered users or Invalid Id",
         invalidMembers
       });
     }
@@ -58,6 +58,7 @@ export const CreateGroupController = async (req, res) => {
 
   } catch (error) {
     console.error("Error creating group:", error);
+    next(error)
     res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -5,12 +5,21 @@ import { usercollections } from './../../schemas/UsersSchema.js';
 export const AuthSigninController = async (req, res, next) => {
   const { email, password } = req.body;
 
-  console.log(req.body)
+  
   try {
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+
     const user = await usercollections.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
+
+
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -29,6 +38,7 @@ export const AuthSigninController = async (req, res, next) => {
     res.status(200).json({ message: 'Sign-in successful',token });
   } catch (error) {
     console.error("Sign-in error:", error);
+    next(error)
     res.status(500).json({ message: "Internal server error" });
   }
 };
