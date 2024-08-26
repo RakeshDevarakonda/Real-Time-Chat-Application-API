@@ -35,14 +35,17 @@ http://localhost:8000
    cd <repository-directory>
 Install dependencies:
 
-bash
-Copy code
 npm install
-Start the server:
+Start the server: nodemon index.js
 
-bash
-Copy code
-npm start
+
+## Eniviromnet Variables
+
+```
+- MONGODB_URI :- "MONGODB CONNECTION STRING"
+- secretkey :- "ADD YOUR SECRET KEY"
+
+```
 Test the API:
 
 Open your browser and go to http://localhost:8000/api-docs to explore and test the API using the automatically generated documentation.
