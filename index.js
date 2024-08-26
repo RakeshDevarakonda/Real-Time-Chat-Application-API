@@ -59,11 +59,11 @@ const io = new Server(server);
 //   });
 // });
 
-app.get('/', async (req, res) => {
+app.get('/sample', async (req, res) => {
  res.render("index")
 });
 
-app.get('/sample', async (req, res) => {
+app.get('/', async (req, res) => {
   res.send("index")
  });
 
