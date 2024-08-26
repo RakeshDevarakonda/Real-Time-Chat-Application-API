@@ -1,171 +1,166 @@
-# Real-Time Chat Application
+# Real-Time Chat API
 
 ## Overview
 
-This is a real-time chat application built with Node.js, Express.js, Socket.IO, and MongoDB. It supports user authentication, message history retrieval, and group chat functionality. The application is dockerized for easy deployment.
+Welcome to the Real-Time Chat API! This API enables real-time communication between users, allowing them to send direct messages, participate in group chats, and manage their accounts. 
 
-## Features
+### Base URL
 
-- User authentication with JWT
-- Real-time messaging using Socket.IO
-- Message history retrieval with pagination
-- Group chat creation and messaging
-- Dockerized application for easy deployment
-
-## Technologies
-
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB
-- **Real-Time Communication:** Socket.IO
-- **Authentication:** JWT
-- **Containerization:** Docker
+http://localhost:8000
 
 
-##setup
+## Getting Started
+
+### Prerequisites
+
+- Ensure you have [Node.js](https://nodejs.org/) installed.
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+Install dependencies using npm i
+
 
 npm install
+Start the server:
 
-JWT_SECRET=your_jwt_secret
-MONGO_URI=your_mongodb_uri
-
+bash
+Copy code
 npm start
+Test the API:
+
+Open your browser and go to http://localhost:8000/api-docs to explore and test the API using the automatically generated documentation.
 
 
-## API Documentation
 
-### User Authentication
+## Table of Contents
 
-#### Register User
+- [Authentication](#authentication)
+  - [Register a New User](#register-a-new-user)
+  - [User Login](#user-login)
+- [Messages](#messages)
+  - [Send a New Message](#send-a-new-message)
+  - [Retrieve Message History](#retrieve-message-history)
+- [Groups](#groups)
+  - [Create a New Group Chat](#create-a-new-group-chat)
+  - [Send a Message to a Group](#send-a-message-to-a-group)
+
+## Authentication
+
+### Register a New User
 
 - **Endpoint:** `/api/register`
 - **Method:** `POST`
-- **Description:** Register a new user.
-- **Request Body:**
+- **Description:** Register a new user by providing their username, email, password, and confirmation password.
 
+#### Request Body
 
+```json
 {
-  "message": "Registration successful"
+  "username": "string",
+  "email": "string",
+  "password": "string",
+  "confirmpassword": "string"
 }
-
-
-## Login User
-
+Responses
+200 OK: User registered successfully.
+400 Bad Request: Missing or invalid parameters.
+500 Internal Server Error: Server encountered an error.
+User Login
 Endpoint: /api/login
-
 Method: POST
-
-Description: Authenticate a user and return a JWT token.
-
-Request Body:
-
+Description: Authenticate a user and return a JWT token for subsequent requests.
+Request Body
 json
+Copy code
 {
-  "email": "user@example.com",
-  "password": "password123"
+  "email": "string",
+  "password": "string"
 }
-
-
-## Messaging
-Send Message
+Responses 
+200 OK: JWT token returned.
+401 Unauthorized: Invalid credentials.
+500 Internal Server Error: Server encountered an error.
+Messages
+Send a New Message
 Endpoint: /api/messages
-
 Method: POST
-
-Description: Send a new message to a user or a group.
-
-Request Body:
-
+Description: Send a new message from one user to another, or to a group.
+Request Body
+json
+Copy code
 {
-  "senderId": "sender-id",
-  "receiverId": "receiver-id",  // Optional for group messages
-  "groupId": "group-id",        // Optional for direct messages
-  "content": "Hello, World!"
+  "senderId": "string",
+  "receiverId": "string",
+  "groupId": "string (nullable)",
+  "content": "string"
 }
-
-
-
-### Get Message History
+Responses
+200 OK: Message sent successfully.
+400 Bad Request: Missing or invalid parameters.
+500 Internal Server Error: Server encountered an error.
+Retrieve Message History
 Endpoint: /api/messages/history
-
 Method: GET
-
-Description: Retrieve message history between two users or within a group.
-
-Query Parameters:
-
-userId (required): The ID of the user whose message history is being retrieved.
-withUserId (optional): The ID of the other user for direct messages.
-groupId (optional): The ID of the group for group messages.
-page (optional): The page number for pagination.
-pageSize (optional): The number of messages per page.
-
-
-output:- 
-[
-  {
-    "senderId": "sender-id",
-    "receiverId": "receiver-id",
-    "groupId": "group-id",
-    "content": "Hello, World!",
-    "timestamp": "2024-08-25T12:00:00Z"
-  }
-]
-
-
-##  Group Chat
-Create Group
+Description: Retrieve the message history between users or within a group.
+Query Parameters
+userId (required): ID of the user.
+withUserId: ID of the other user in a direct message conversation.
+groupId (optional): ID of the group chat.
+page: Page number for pagination.
+pageSize: Number of messages per page.
+Responses
+200 OK: Message history retrieved successfully.
+400 Bad Request: Missing or invalid parameters.
+500 Internal Server Error: Server encountered an error.
+Groups
+Create a New Group Chat
 Endpoint: /api/groups
-
 Method: POST
-
-Description: Create a new group chat.
-
-Request Body:
+Description: Create a new group chat by specifying the group name and members.
+Request Body
+json
+Copy code
 {
-  "name": "Group Name",
-  "members": ["member-id1", "member-id2"]
+  "name": "string",
+  "members": ["string"]
 }
-
-
-response:-
-{
-  "group": {
-    "id": "group-id",
-    "name": "Group Name",
-    "members": ["member-id1", "member-id2"]
-  }
-}
-
-
-#### Send Group Message
+Responses
+200 OK: Group created successfully.
+400 Bad Request: Missing or invalid parameters.
+500 Internal Server Error: Server encountered an error.
+Send a Message to a Group
 Endpoint: /api/groups/{groupId}/messages
-
 Method: POST
-
-Description: Send a message to a group.
-
-Request Body:
-
-json:-
-
+Description: Send a message to a specific group.
+URL Parameters
+groupId (required): ID of the group.
+Request Body
+json
+Copy code
 {
-  "senderId": "sender-id",
-    "groupId": "group-id",
-  "content": "Group message content"
+  "senderId": "string",
+  "content": "string"
 }
-Response:
+Responses
+200 OK: Group message sent successfully.
+400 Bad Request: Missing or invalid parameters.
+500 Internal Server Error: Server encountered an error.
+Security
+This API uses JWT (JSON Web Token) for authentication. The token should be included in the Authorization header of requests, without the 'Bearer' prefix.
 
-Success:
+Example Header
+makefile
+Copy code
+Authorization: <JWT_TOKEN>
+Error Handling
+The API returns standard HTTP status codes to indicate the success or failure of requests:
 
-
-{
-  "success": true,
-  "message": "Group message content"
-}
-Error:
-
-
-{
-  "message": "Error message"
-}
-
+200 OK: The request was successful.
+400 Bad Request: There was an issue with the request data.
+401 Unauthorized: Authentication failed.
+500 Internal Server Error: The server encountered an unexpected condition.
