@@ -29,7 +29,12 @@ const __dirname = dirname(__filename);
 
 
 const app = express();
-app.use(cors())
+
+const corsOptions = {
+  origin: '*', // Allow only requests from this origin
+  methods: 'GET,POST' // Allow only these methods
+};
+app.use(cors(corsOptions))
 
 app.use("/api-docs",swagger.serve,swagger.setup(apiDocs))
 
