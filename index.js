@@ -18,6 +18,12 @@ import swagger from "swagger-ui-express";
 import apiDocs from "./swagger.json" assert {type:"json"};
 
 import cors from "cors";
+import path, { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 
 
@@ -31,8 +37,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
+app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('views', 'views'); 
+
 
 const server = createServer(app);
 const io = new Server(server);
