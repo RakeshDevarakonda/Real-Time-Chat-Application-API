@@ -63,6 +63,10 @@ app.get('/', async (req, res) => {
  res.render("index")
 });
 
+app.get('/sample', async (req, res) => {
+  res.send("index")
+ });
+
 app.use('/api', AuthRouter);
 app.use('/api', jwtAuth,MessageRouter);
 app.use('/api',jwtAuth, GroupRouter);
