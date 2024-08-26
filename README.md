@@ -4,13 +4,18 @@
 
 Welcome to the Real-Time Chat API! This API enables real-time communication between users, allowing them to send direct messages, participate in group chats
 
-## Swagger API Documentation
 
+## API URL 
+https://real-time-chat-application-api.onrender.com
+
+```Note :- It may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load``` 
+
+
+
+## Swagger API Documentation
 https://real-time-chat-application-api.onrender.com/api-docs
 
-```
-Note: Please be patient as it may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load.
-```
+```Note: Please be patient as it may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load. ```
 
 
 
