@@ -8,9 +8,7 @@ import { mongoosedatabse } from './mongodbconfig.js';
 import AuthRouter from './Routes/AuthRoute.js';
 import MessageRouter from './Routes/MessageRouter.js';
 import GroupRouter from './Routes/GroupRoute.js';
-import { usercollections } from './schemas/UsersSchema.js';
 import { setupSocket } from './socket.js';
-import { Socket } from 'dgram';
 import { jwtAuth } from './JsonWebTokn/jwt.js';
 
 import swagger from "swagger-ui-express";
@@ -28,7 +26,8 @@ const __dirname = dirname(__filename);
 
 
 
-const app = express();
+
+export const app = express();
 
 const corsOptions = {
   origin: '*', // Allow only requests from this origin
@@ -99,7 +98,3 @@ server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
   mongoosedatabse(); 
 });
-
-
-
-// Use this middleware at the end
