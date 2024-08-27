@@ -6,14 +6,15 @@
     "description": "API documentation for the real-time chat application."
   },
   "servers": [
-    {
-      "url": "http://localhost:8000",
-      "description": "Local server"
-    }
-    ,
+   
+    
     {
       "url": "https://real-time-chat-application-api.onrender.com/",
       "description": "Staging server"
+    },
+    {
+      "url": "http://localhost:8000",
+      "description": "Local server"
     }
 
   ],
