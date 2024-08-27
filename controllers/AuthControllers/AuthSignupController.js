@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { usercollections } from "../../schemas/UsersSchema.js";
 
 
-export const AuthSignupController = async (req, res) => {
+export const AuthSignupController = async (req, res,next) => {
   const { username, email, password, confirmpassword } = req.body;
 
   try {
