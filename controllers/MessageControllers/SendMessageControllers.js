@@ -46,24 +46,22 @@ export const SendMessageController = async (req, res, next) => {
         return res.status(400).json({ message: "Invalid group ID format" });
       }
 
+      if (groupId &&  groupId.trim().length !==0){
 
-      if (groupId &&  groupId.trim().length ==0 ) {
-        return res.status(400).json({ message: "Invalid group ID format" });
+        const group = await groupcollections.findById(groupId);
+        if (!group) {
+          return res.status(404).json({ message: "Group not found" });
+        }
+  
+        if (!group.members.includes(senderId)) {
+          return res
+            .status(403)
+            .json({ message: "Sender is not a member of the group" });
+        
+      }
       }
 
 
-
-      const group = await groupcollections.findById(groupId);
-      if (!group) {
-        return res.status(404).json({ message: "Group not found" });
-      }
-
-      if (!group.members.includes(senderId)) {
-        return res
-          .status(403)
-          .json({ message: "Sender is not a member of the group" });
-      
-    }
 
     const message = new messagecollections({
       senderId,
