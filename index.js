@@ -81,6 +81,10 @@ app.use('/api',jwtAuth, GroupRouter);
 
 setupSocket(io);
 
+app.use((req, res) => {
+  res.status(404).send('Not Found');
+});
+
 
 app.use((err, req, res, next) => {
 
