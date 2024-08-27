@@ -42,9 +42,15 @@ export const SendMessageController = async (req, res, next) => {
     }
     
 
-      if (groupId && !mongoose.Types.ObjectId.isValid(groupId) || groupId.trim().length ==0) {
+      if (groupId && !mongoose.Types.ObjectId.isValid(groupId) ) {
         return res.status(400).json({ message: "Invalid group ID format" });
       }
+
+
+      if (groupId &&  groupId.trim().length ==0 ) {
+        return res.status(400).json({ message: "Invalid group ID format" });
+      }
+
 
 
       const group = await groupcollections.findById(groupId);
