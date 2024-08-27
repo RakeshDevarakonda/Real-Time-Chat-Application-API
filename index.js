@@ -70,6 +70,11 @@ app.get('/', async (req, res) => {
     )
  });
 
+ app.get('/2', async (req, res) => {
+  res.send("ok")
+ });
+
+
 app.use('/api', AuthRouter);
 app.use('/api', jwtAuth,MessageRouter);
 app.use('/api',jwtAuth, GroupRouter);
