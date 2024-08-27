@@ -8,7 +8,9 @@ import { mongoosedatabse } from './mongodbconfig.js';
 import AuthRouter from './Routes/AuthRoute.js';
 import MessageRouter from './Routes/MessageRouter.js';
 import GroupRouter from './Routes/GroupRoute.js';
+import { usercollections } from './schemas/UsersSchema.js';
 import { setupSocket } from './socket.js';
+import { Socket } from 'dgram';
 import { jwtAuth } from './JsonWebTokn/jwt.js';
 
 import swagger from "swagger-ui-express";
@@ -26,8 +28,7 @@ const __dirname = dirname(__filename);
 
 
 
-
-export const app = express();
+const app = express();
 
 const corsOptions = {
   origin: '*', // Allow only requests from this origin
@@ -69,17 +70,11 @@ app.get('/', async (req, res) => {
     )
  });
 
-
-
 app.use('/api', AuthRouter);
 app.use('/api', jwtAuth,MessageRouter);
 app.use('/api',jwtAuth, GroupRouter);
 
 setupSocket(io);
-
-app.use((req, res) => {
-  res.status(404).send('Not Found');
-});
 
 
 app.use((err, req, res, next) => {
@@ -95,3 +90,7 @@ server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
   mongoosedatabse(); 
 });
+
+
+
+// Use this middleware at the end

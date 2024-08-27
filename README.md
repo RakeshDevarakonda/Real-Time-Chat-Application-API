@@ -2,25 +2,9 @@
 
 ## Overview
 
-Welcome to the Real-Time Chat API! This API enables real-time communication between users, allowing them to send direct messages, participate in group chats
-
-
-## API URL 
-https://real-time-chat-application-api.onrender.com
-
-```Note :- It may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load``` 
-
-
-
-## Swagger API Documentation
-https://real-time-chat-application-api.onrender.com/api-docs
-
-```Note: Please be patient as it may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load. ```
-
-
+Welcome to the Real-Time Chat API! This API enables real-time communication between users, allowing them to send direct messages, participate in group chats, and manage their accounts. 
 
 ### Base URL
-
 
 http://localhost:8000
 
@@ -40,17 +24,14 @@ http://localhost:8000
    cd <repository-directory>
 Install dependencies:
 
+bash
+Copy code
 npm install
-Start the server: nodemon index.js
+Start the server:
 
-
-## Eniviromnet Variables
-
-```
-- MONGODB_URI :- "MONGODB CONNECTION STRING"
-- secretkey :- "ADD YOUR SECRET KEY"
-
-```
+bash
+Copy code
+npm start
 Test the API:
 
 Open your browser and go to http://localhost:8000/api-docs to explore and test the API using the automatically generated documentation.
