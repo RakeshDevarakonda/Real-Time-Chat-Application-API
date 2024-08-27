@@ -63,10 +63,12 @@ const io = new Server(server);
 
 app.get('/', async (req, res) => {
   res.send(`<h1>This is Just An API Project</h1>
-<h3>Please Visit <a href="https://real-time-chat-application-api.onrender.com/api-docs">https://real-time-chat-application-api.onrender.com/api-docs</a>   For Api Documentation</h3>
+    <h3>To Use API :  <a href="https://real-time-chat-application-api.onrender.com">https://real-time-chat-application-api.onrender.com</a>.</span></h3>
+<h3>Please Visit <a href="https://real-time-chat-application-api.onrender.com/api-docs">https://real-time-chat-application-api.onrender.com/api-docs</a>   For Swagger Api Documentation</h3>
 
     <h5>Note : - <span>Please be patient as it may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load.</span></h5>
-    <h5>Note : - <span>Please switch servers in swagger api documentation.</span></h5>`
+    <h5>Note : - <span>Please switch servers in swagger api documentation (according to your preference ).</span></h5>`
+
 
     )
  });
