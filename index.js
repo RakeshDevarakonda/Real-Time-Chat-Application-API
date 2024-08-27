@@ -9,7 +9,7 @@ import AuthRouter from './Routes/AuthRoute.js';
 import MessageRouter from './Routes/MessageRouter.js';
 import GroupRouter from './Routes/GroupRoute.js';
 import { usercollections } from './schemas/UsersSchema.js';
-// import { setupSocket } from './socket.js';
+import { setupSocket } from './socket.js';
 import { Socket } from 'dgram';
 import { jwtAuth } from './JsonWebTokn/jwt.js';
 
@@ -47,8 +47,8 @@ app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-// const server = createServer(app);
-// const io = new Server(server);
+const server = createServer(app);
+const io = new Server(server);
 
 // io.on('connection', (socket) => {
 //   console.log('User connected');
@@ -75,7 +75,7 @@ app.use('/api', AuthRouter);
 app.use('/api', jwtAuth,MessageRouter);
 app.use('/api',jwtAuth, GroupRouter);
 
-// setupSocket(io);
+setupSocket(io);
 
 
 app.use((err, req, res, next) => {
@@ -87,7 +87,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = 8000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
   mongoosedatabse(); 
 });
