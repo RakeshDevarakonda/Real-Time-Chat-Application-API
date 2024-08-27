@@ -31,8 +31,8 @@ const __dirname = dirname(__filename);
 const app = express();
 
 const corsOptions = {
-  origin: '*', // Allow only requests from this origin
-  methods: 'GET,POST' // Allow only these methods
+  origin: '*', 
+  methods: 'GET,POST'
 };
 app.use(cors(corsOptions))
 
