@@ -86,6 +86,10 @@ app.use((err, req, res, next) => {
   
 });
 
+app.use((req,res)=>{
+  res.send("You Have Entered Wrong Page Please Go  Back")
+})
+
 const PORT = 8000;
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
