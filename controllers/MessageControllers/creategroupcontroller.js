@@ -30,6 +30,12 @@ export const CreateGroupController = async (req, res,next) => {
       return res.status(400).json({ message: "Member IDs cannot be empty strings." });
     }
 
+
+    const memberSet = new Set(nonEmptyMembers);
+    if (memberSet.size !== nonEmptyMembers.length) {
+      return res.status(400).json({ message: "Duplicate member IDs are not allowed." });
+    }
+
     const memberChecks = nonEmptyMembers.map(async (memberId) => {
       if (!mongoose.Types.ObjectId.isValid(memberId)) {
         return { memberId, valid: false };
