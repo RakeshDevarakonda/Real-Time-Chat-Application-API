@@ -12,6 +12,12 @@ export const AuthSignupController = async (req, res) => {
       return res.status(409).json({ message: "User already exists" });
     }
 
+    if (!username || !email || !password || !confirmpassword) {
+      return res.status(409).json({ message: "please enter all details username , email, password ,confirmpassword" });
+    }
+
+
+
     if (username.trim().length <= 3 || username.trim().length <= 3) {
       return res
         .status(400)

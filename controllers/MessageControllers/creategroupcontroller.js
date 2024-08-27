@@ -6,6 +6,11 @@ export const CreateGroupController = async (req, res,next) => {
   try {
     const { name, members } = req.body;
 
+
+    if (!name || !members) {
+      return res.status(409).json({ message: "please enter all details name and members" });
+    }
+
     if (!name || typeof name !== "string" || name.trim() === "") {
       return res.status(400).json({
         message: "'name' is required and must be a non-empty string.",

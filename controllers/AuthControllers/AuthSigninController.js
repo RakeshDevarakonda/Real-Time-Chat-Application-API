@@ -8,6 +8,10 @@ export const AuthSigninController = async (req, res, next) => {
   
   try {
 
+    if ( !email || !password ) {
+      return res.status(409).json({ message: "please enter all details   email, password " });
+    }
+
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email)) {
       return res.status(400).json({ error: 'Invalid email address' });
