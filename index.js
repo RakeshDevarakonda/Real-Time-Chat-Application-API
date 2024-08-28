@@ -75,7 +75,7 @@ const io = new Server(server);
 //  });
 
 app.get("/",(req,res)=>{
-  res.render("index")
+  res.send("index")
 })
 
 app.use('/api', AuthRouter);
