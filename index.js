@@ -15,7 +15,11 @@ import { jwtAuth } from "./JsonWebTokn/jwt.js";
 
 import swagger from "swagger-ui-express";
 
-import apiDocs from "./swagger.json" assert { type: "json" };
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+
+const apiDocs = require("./swagger.json");
 
 import cors from "cors";
 import path, { dirname, join } from "path";
@@ -26,13 +30,19 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-const corsOptions = {
-  origin: '*', 
-  methods: 'GET,POST'
-};
-app.use(cors(corsOptions))
 
-app.use("/api-docs",swagger.serve,swagger.setup(apiDocs))
+const corsOptions = {
+  origin: "*",
+  methods: "GET,POST",
+};
+
+
+
+
+
+app.use(cors(corsOptions));
+
+app.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,9 +57,8 @@ const io = new Server(server);
 io.on("connection", (socket) => {
   console.log("User connected");
 
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
   });
 });
 
@@ -59,35 +68,29 @@ app.get("/", async (req, res) => {
 <h3>Please Visit <a href="https://real-time-chat-application-api.onrender.com/api-docs">https://real-time-chat-application-api.onrender.com/api-docs</a>   For Swagger Api Documentation</h3>
 
     <h5>Note : - <span>Please be patient as it may take up to one minute to load. The application is hosted on Render's free hosting service, which may take a few extra seconds to load.</span></h5>
-    <h5>Note : - <span>Please switch servers in swagger api documentation (according to your preference ).</span></h5>`
+    <h5>Note : - <span>Please switch servers in swagger api documentation (according to your preference ).</span></h5>`);
+});
 
-
-    )
- });
-
-
-
-app.use('/api', AuthRouter);
-app.use('/api', jwtAuth,MessageRouter);
-app.use('/api',jwtAuth, GroupRouter);
+app.use("/api", AuthRouter);
+app.use("/api", jwtAuth, MessageRouter);
+app.use("/api", jwtAuth, GroupRouter);
 
 setupSocket(io);
 
-
 app.use((err, req, res, next) => {
+  console.log(err);
 
-  console.log(err)
- 
-    res.send('internal server problem');
-  
+  res.send("internal server problem");
+});
+
+app.use((req, res) => {
+  res.send("You Have Entered Wrong Page Please Go  Back");
 });
 
 const PORT = 8000;
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
-  mongoosedatabse(); 
+  mongoosedatabse();
 });
-
-
 
 // Use this middleware at the end
