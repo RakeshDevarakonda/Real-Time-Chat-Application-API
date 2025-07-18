@@ -46,7 +46,6 @@ app.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.set("views", join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -88,9 +87,9 @@ app.use((req, res) => {
 });
 
 const PORT = 8000;
-server.listen(PORT, () => {
+server.listen(PORT,'0.0.0.0', () => {
   console.log(`Server is listening on port ${PORT}`);
   mongoosedatabse();
 });
 
-// Use this middleware at the end
+
