@@ -1,21 +1,21 @@
 import "dotenv/config";
-import express from 'express';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-import { mongoosedatabse } from './mongodbconfig.js';
-import AuthRouter from './Routes/AuthRoute.js';
-import MessageRouter from './Routes/MessageRouter.js';
-import GroupRouter from './Routes/GroupRoute.js';
-import { usercollections } from './schemas/UsersSchema.js';
-import { setupSocket } from './socket.js';
-import { Socket } from 'dgram';
-import { jwtAuth } from './JsonWebTokn/jwt.js';
+import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import { mongoosedatabse } from "./mongodbconfig.js";
+import AuthRouter from "./Routes/AuthRoute.js";
+import MessageRouter from "./Routes/MessageRouter.js";
+import GroupRouter from "./Routes/GroupRoute.js";
+import { usercollections } from "./schemas/UsersSchema.js";
+import { setupSocket } from "./socket.js";
+import { Socket } from "dgram";
+import { jwtAuth } from "./JsonWebTokn/jwt.js";
 
 import swagger from "swagger-ui-express";
 
-import apiDocs from "./swagger.json" assert {type:"json"};
+import apiDocs from "./swagger.json" assert { type: "json" };
 
 import cors from "cors";
 import path, { dirname, join } from "path";
@@ -23,10 +23,6 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-
-
-
 
 const app = express();
 
@@ -42,16 +38,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
-app.set('views', join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
+app.set("views", join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 const server = createServer(app);
 const io = new Server(server);
 
-io.on('connection', (socket) => {
-  console.log('User connected');
+io.on("connection", (socket) => {
+  console.log("User connected");
 
 
   socket.on('disconnect', () => {
@@ -59,10 +53,7 @@ io.on('connection', (socket) => {
   });
 });
 
-
-
-app.get('/', async (req, res) => {
-
+app.get("/", async (req, res) => {
   res.send(`<h1>This is Just An API Project</h1>
     <h3>To Use API :  <a href="https://real-time-chat-application-api.onrender.com">https://real-time-chat-application-api.onrender.com</a>.</span></h3>
 <h3>Please Visit <a href="https://real-time-chat-application-api.onrender.com/api-docs">https://real-time-chat-application-api.onrender.com/api-docs</a>   For Swagger Api Documentation</h3>
@@ -90,10 +81,6 @@ app.use((err, req, res, next) => {
     res.send('internal server problem');
   
 });
-
-app.use((req,res)=>{
-  res.send("You Have Entered Wrong Page Please Go  Back")
-})
 
 const PORT = 8000;
 server.listen(PORT, () => {
