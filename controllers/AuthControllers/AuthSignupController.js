@@ -94,7 +94,7 @@ export const AuthSignupController = async (req, res, next) => {
       3600
     );
 
-    res.status(201).json({ message: "Registration successful", email });
+    res.status(201).json({ message: "Registration successful", email,userId:newUser._id });
   } catch (err) {
     console.log(err);
     if (err.name === "ValidationError") {

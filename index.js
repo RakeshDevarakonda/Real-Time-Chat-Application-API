@@ -15,8 +15,6 @@ import { jwtAuth } from "./JsonWebTokn/jwt.js";
 
 import swagger from "swagger-ui-express";
 
-
-
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
@@ -32,9 +30,11 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-
 const corsOptions = {
-  origin: ["https://real-time-chat-application-api.onrender.com", "http://localhost:3000"],
+  origin: [
+    "https://real-time-chat-application-api.onrender.com",
+    "http://localhost:3000",
+  ],
   methods: "GET,POST",
 };
 
@@ -84,11 +84,13 @@ app.use((req, res) => {
   res.send("You Have Entered Wrong Page Please Go  Back");
 });
 
-
 const PORT = 8000;
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is listening on port ${PORT}`);
-  mongoosedatabse();
-});
 
+if (process.env.NODE_ENV !== "test") {
+  server.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is listening on port ${PORT}`);
+    mongoosedatabse();
+  });
+}
 
+export { app, server };
