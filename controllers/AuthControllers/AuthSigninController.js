@@ -7,42 +7,46 @@ export const AuthSigninController = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-
     if (!email || !password) {
-      return res.status(409).json({ message: "Please enter all details: email, password" });
+      return res
+        .status(409)
+        .json({ message: "Please enter all details: email, password" });
     }
     if (email.trim().length <= 3) {
-      return res.status(400).json({ message: "Email must be at least 4 characters and non-empty spaces" });
+      return res.status(400).json({
+        message: "Email must be at least 4 characters and non-empty spaces",
+      });
     }
     if (password.trim().length <= 3) {
-      return res.status(400).json({ message: "Password must be at least 4 characters and non-empty spaces" });
+      return res.status(400).json({
+        message: "Password must be at least 4 characters and non-empty spaces",
+      });
     }
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email.trim())) {
       return res.status(400).json({ error: "Invalid email address" });
     }
 
-     
-
-    
-
     const redisUserKey = `user:email:${email}`;
-
-
 
     let user = null;
     const cachedUser = await redisClient.get(redisUserKey);
     if (cachedUser) {
       user = JSON.parse(cachedUser);
     } else {
-      user = await usercollections.findOne({ email });
+      const safeEmail = email.trim().toLowerCase();
+
+      user = await usercollections.findOne({ email: safeEmail });
       if (user) {
         await redisClient.set(redisUserKey, JSON.stringify(user), "EX", 3600);
-        await redisClient.set(`user:id:${user._id}`, JSON.stringify(user), "EX", 3600);
+        await redisClient.set(
+          `user:id:${user._id}`,
+          JSON.stringify(user),
+          "EX",
+          3600
+        );
       }
     }
-
-    
 
     if (!user) {
       return res.status(400).json({ message: "User not found" });
