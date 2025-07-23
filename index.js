@@ -34,13 +34,9 @@ const app = express();
 
 
 const corsOptions = {
-  origin: "*",
+  origin: ["https://real-time-chat-application-api.onrender.com", "http://localhost:3000"],
   methods: "GET,POST",
 };
-
-
-
-
 
 app.use(cors(corsOptions));
 
