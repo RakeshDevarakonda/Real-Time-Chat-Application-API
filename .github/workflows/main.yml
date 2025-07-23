@@ -13,6 +13,7 @@ jobs:
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       secretkey: ${{ secrets.secretkey }}
       redis: ${{ secrets.REDIS_URI }}
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
